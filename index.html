@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Materiales de Reliquias</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <h1>Calculadora de Materiales de Reliquias</h1>
+    <label for="reliquiaInputInicio">Reliquia inicial:</label>
+    <input type="text" id="reliquiaInputInicio" placeholder="Por ejemplo, R1, R2, etc.">
+    <br><br>
+    <label for="reliquiaInputDestino">Reliquia destino:</label>
+    <input type="text" id="reliquiaInputDestino" placeholder="Por ejemplo, R8, R9, etc.">
+    <br><br>
+    <button onclick="calcularMateriales()">Calcular Materiales</button>
+    <div id="resultado"></div>
+
+    <script>
+        // Definir la tabla de materiales necesarios por reliquia
+        const tabla = {
+            "R1": {"Creditos": 10000, "Materiales": {"Carbonita":40, "Fragmentados": 0, "Incompletos": 0, "Errores": 0}},
+            "R2": {"Creditos": 25000, "Materiales": {"Carbonita": 30, "Bronzium": 40, "Fragmentados": 15, "Incompletos": 0, "Errores": 0}},
+            "R3": {"Creditos": 50000, "Materiales": {"Carbonita": 30, "Bronzium": 40, "Chromium": 20, "Fragmentados": 20, "Incompletos": 15, "Errores": 0}},            
+            "R4": {"Creditos": 75000, "Materiales": {"Carbonita": 30, "Bronzium": 40, "Chromium": 40, "Fragmentados": 20, "Incompletos": 25, "Errores": 0}},
+            "R5": {"Creditos": 100000, "Materiales": {"Carbonita": 30, "Bronzium": 40, "Chromium": 40, "Aurodium": 20, "Fragmentados": 20, "Incompletos": 25, "Errores": 15}},            
+            "R6": {"Creditos": 250000, "Materiales": {"Carbonita": 20, "Bronzium": 30, "Chromium": 30, "Aurodium": 20, "Electrium": 20, "Fragmentados": 20, "Incompletos": 25, "Errores": 25}},            
+            "R7": {"Creditos": 500000, "Materiales": {"Carbonita": 20, "Bronzium": 30, "Chromium": 30, "Aurodium": 20, "Electrium": 20, "Zinbiddle": 10, "Fragmentados": 20, "Incompletos": 25, "Errores": 35}},            
+            "R8": {"Creditos": 1000000, "Materiales": {"Carbonita": 20, "Bronzium": 30, "Chromium": 30, "Aurodium": 20, "Electrium": 20, "Zinbiddle": 10, "Impulsos": 20, "Aeromagnificador": 20, "Gyrda": 20, "Fragmentados": 20, "Incompletos": 25, "Errores": 45}},
+            "R9": {"Creditos": 1500000, "Materiales": {"Carbonita": 20, "Bronzium": 30, "Chromium": 30, "Aurodium": 20, "Electrium": 20, "Zinbiddle": 10, "Impulsos": 20, "Aeromagnificador": 20, "Gyrda": 20, "Droide": 20, "Fragmentados": 30, "Incompletos": 30, "Errores": 55}},
+        };
+
+        // Función para obtener los materiales necesarios para una reliquia dada
+        function obtenerMateriales(reliquia) {
+            if (reliquia in tabla) {
+                return tabla[reliquia];
+            } else {
+                return "Reliquia no encontrada";
+            }
+        }
+
+        // Función para mostrar los materiales necesarios de manera legible
+        function mostrarMateriales(materiales) {
+            let mensaje = "<ul>";
+            for (const material in materiales) {
+                mensaje += `<li>${material}: ${materiales[material]}</li>`;
+            }
+            mensaje += "</ul>";
+            return mensaje;
+        }
+
+        // Función para calcular los materiales necesarios al hacer clic en el botón
+        function calcularMateriales() {
+            const reliquiaInputInicio = document.getElementById("reliquiaInputInicio").value;
+            const reliquiaInputDestino = document.getElementById("reliquiaInputDestino").value;
+            const resultadoDiv = document.getElementById("resultado");
+
+            // Verificar que las reliquias existen en la tabla
+            if (reliquiaInputInicio in tabla && reliquiaInputDestino in tabla) {
+                let totalCreditos = 0;
+                let totalMateriales = {"Carbonita": 0, "Bronzium": 0, "Chromium": 0, "Aurodium": 0, "Electrium": 0, "Impulsos": 0, "Aeromagnificador": 0, "Gyrda": 0, "Droide": 0};
+                let totalDatos = {"Fragmentados": 0, "Incompletos": 0, "Errores": 0};
+
+                // Iterar desde la reliquia inicial hasta la reliquia destino, sumando los materiales necesarios
+                let reliquiaActual = reliquiaInputInicio;
+                while (reliquiaActual !== reliquiaInputDestino) {
+                    const materialesNecesarios = obtenerMateriales(reliquiaActual);
+                    for (const material in materialesNecesarios["Materiales"]) {
+                        if (material in totalMateriales) {
+                            totalMateriales[material] += materialesNecesarios["Materiales"][material];
+                        }
+                    }
+                    for (const dato in materialesNecesarios["Materiales"]) {
+                        if (dato in totalDatos) {
+                            totalDatos[dato] += materialesNecesarios["Materiales"][dato];
+                        }
+                    }
+                    totalCreditos += materialesNecesarios["Creditos"];
+
+                    // Obtener la siguiente reliquia en la secuencia
+                    const numeroReliquia = parseInt(reliquiaActual.substr(1));
+                    reliquiaActual = "R" + (numeroReliquia + 1);
+                }
+
+                // Sumar los materiales de la reliquia de destino
+                const materialesDestino = obtenerMateriales(reliquiaInputDestino);
+                for (const material in materialesDestino["Materiales"]) {
+                    if (material in totalMateriales) {
+                        totalMateriales[material] += materialesDestino["Materiales"][material];
+                    }
+                }
+                for (const dato in materialesDestino["Materiales"]) {
+                    if (dato in totalDatos) {
+                        totalDatos[dato] += materialesDestino["Materiales"][dato];
+                    }
+                }
+                totalCreditos += materialesDestino["Creditos"];
+
+                // Mostrar los materiales necesarios totales
+                resultadoDiv.innerHTML += `<h2>Total Créditos: ${totalCreditos}</h2>`;
+                resultadoDiv.innerHTML += `<h2>Total Materiales:</h2>`;
+                resultadoDiv.innerHTML += mostrarMateriales(totalMateriales);
+                resultadoDiv.innerHTML += `<h2>Total Datos:</h2>`;
+                resultadoDiv.innerHTML += mostrarMateriales(totalDatos);
+            } else {
+                resultadoDiv.innerHTML = "<p>Una o ambas reliquias ingresadas no existen en la tabla.</p>";
+            }
+        }
+    </script>
+</body>
+</html>
