@@ -50,8 +50,8 @@
             "R5": {"Creditos": 100000, "Materiales": {"Carbonita": 30, "Bronzium": 40, "Chromium": 30, "Aurodium": 20, "Electrium": 0, "Zinbiddle": 0, "Impulsos": 0, "Aeromagnificador": 0, "Gyrda": 0, "Droide": 0}, "Datos": {"Fragmentados": 20, "Incompletos": 25, "Errores": 15}},        
             "R6": {"Creditos": 250000, "Materiales": {"Carbonita": 20, "Bronzium": 30, "Chromium": 30, "Aurodium": 20, "Electrium": 20, "Zinbiddle": 0, "Impulsos": 0, "Aeromagnificador": 0, "Gyrda": 0, "Droide": 0}, "Datos": {"Fragmentados": 20, "Incompletos": 25, "Errores": 25}},          
             "R7": {"Creditos": 500000, "Materiales": {"Carbonita": 20, "Bronzium": 30, "Chromium": 20, "Aurodium": 20, "Electrium": 20, "Zinbiddle": 10, "Impulsos": 0, "Aeromagnificador": 0, "Gyrda": 0, "Droide": 0}, "Datos": {"Fragmentados": 20, "Incompletos": 25, "Errores": 35}},          
-            "R8": {"Creditos": 1000000, "Materiales": {"Carbonita": 20, "Bronzium": 30, "Chromium": 20, "Aurodium": 20, "Electrium": 20, "Zinbiddle": 20, "Impulsos": 20, "Aeromagnificador": 20, "Gyrda": 20, "Droide": 20}, "Datos": {"Fragmentados": 20, "Incompletos": 25, "Errores": 45}},
-            "R9": {"Creditos": 1500000, "Materiales": {"Carbonita": 20, "Bronzium": 30, "Chromium": 20, "Aurodium": 20, "Electrium": 20, "Zinbiddle": 20, "Impulsos": 20, "Aeromagnificador": 20, "Gyrda": 20, "Droide": 20},"Datos": {"Fragmentados": 30, "Incompletos": 30, "Errores": 55}},
+            "R8": {"Creditos": 1000000, "Materiales": {"Carbonita": 0, "Bronzium": 0, "Chromium": 20, "Aurodium": 20, "Electrium": 20, "Zinbiddle": 20, "Impulsos": 20, "Aeromagnificador": 20, "Gyrda": 0, "Droide": 0}, "Datos": {"Fragmentados": 20, "Incompletos": 25, "Errores": 45}},
+            "R9": {"Creditos": 1500000, "Materiales": {"Carbonita": 0, "Bronzium": 0, "Chromium": 20, "Aurodium": 20, "Electrium": 20, "Zinbiddle": 20, "Impulsos": 20, "Aeromagnificador": 20, "Gyrda": 20, "Droide": 20},"Datos": {"Fragmentados": 30, "Incompletos": 30, "Errores": 55}},
         };
 
         // Función para obtener los materiales necesarios para una reliquia dada
@@ -94,9 +94,9 @@
                             totalMateriales[material] += materialesNecesarios["Materiales"][material];
                         }
                     }
-                    for (const dato in materialesNecesarios["Materiales"]) {
+                    for (const dato in materialesNecesarios["Datos"]) {
                         if (dato in totalDatos) {
-                            totalDatos[dato] += materialesNecesarios["Materiales"][dato];
+                            totalDatos[dato] += materialesNecesarios["Datos"][dato];
                         }
                     }
                     totalCreditos += materialesNecesarios["Creditos"];
@@ -113,9 +113,9 @@
                         totalMateriales[material] += materialesDestino["Materiales"][material];
                     }
                 }
-                for (const dato in materialesDestino["Materiales"]) {
+                for (const dato in materialesDestino["Datos"]) {
                     if (dato in totalDatos) {
-                        totalDatos[dato] += materialesDestino["Materiales"][dato];
+                        totalDatos[dato] += materialesDestino["Datos"][dato];
                     }
                 }
                 totalCreditos += materialesDestino["Creditos"];
