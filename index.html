@@ -7,38 +7,40 @@
     <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-    <h1>Calculadora de Materiales de Reliquias</h1>
-    <label for="reliquiaInputInicio">Reliquia inicial:</label>
-    <select id="reliquiaInputInicio">
-        <option value="R0">R0</option>
-        <option value="R1">R1</option>
-        <option value="R2">R2</option>
-        <option value="R3">R3</option>
-        <option value="R4">R4</option>
-        <option value="R5">R5</option>
-        <option value="R6">R6</option>
-        <option value="R7">R7</option>
-        <option value="R8">R8</option>
-        <option value="R9">R9</option>
-    </select>
-    <br><br>
-    <label for="reliquiaInputDestino">Reliquia destino:</label>
-    <select id="reliquiaInputDestino">
-        <option value="R0">R0</option>
-        <option value="R1">R1</option>
-        <option value="R2">R2</option>
-        <option value="R3">R3</option>
-        <option value="R4">R4</option>
-        <option value="R5">R5</option>
-        <option value="R6">R6</option>
-        <option value="R7">R7</option>
-        <option value="R8">R8</option>
-        <option value="R9">R9</option>
-    </select>
-    <br><br>
-    <button onclick="calcularMateriales()">Calcular Materiales</button>
-    <div id="resultado"></div>
-
+    <div class="contenedor">
+        <h1>Calculadora de Materiales de Reliquias</h1>
+        <label for="reliquiaInputInicio">Reliquia inicial:</label>
+        <select id="reliquiaInputInicio">
+            <option value="R0">R0</option>
+            <option value="R1">R1</option>
+            <option value="R2">R2</option>
+            <option value="R3">R3</option>
+            <option value="R4">R4</option>
+            <option value="R5">R5</option>
+            <option value="R6">R6</option>
+            <option value="R7">R7</option>
+            <option value="R8">R8</option>
+            <option value="R9">R9</option>
+        </select>
+        <br><br>
+        <label for="reliquiaInputDestino">Reliquia destino:</label>
+        <select id="reliquiaInputDestino">
+            <option value="R0">R0</option>
+            <option value="R1">R1</option>
+            <option value="R2">R2</option>
+            <option value="R3">R3</option>
+            <option value="R4">R4</option>
+            <option value="R5">R5</option>
+            <option value="R6">R6</option>
+            <option value="R7">R7</option>
+            <option value="R8">R8</option>
+            <option value="R9">R9</option>
+        </select>
+        <br><br>
+        <button onclick="calcularMateriales()">Calcular Materiales</button>
+        <div id="resultado"></div>
+    </div>
+    
     <script>
         // Definir la tabla de materiales necesarios por reliquia
         const tabla = {
