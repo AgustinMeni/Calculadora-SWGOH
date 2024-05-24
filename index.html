@@ -9,10 +9,32 @@
 <body>
     <h1>Calculadora de Materiales de Reliquias</h1>
     <label for="reliquiaInputInicio">Reliquia inicial:</label>
-    <input type="text" id="reliquiaInputInicio" placeholder="Por ejemplo, R1, R2, etc.">
+    <select id="reliquiaInputInicio">
+        <option value="R0">R0</option>
+        <option value="R1">R1</option>
+        <option value="R2">R2</option>
+        <option value="R3">R3</option>
+        <option value="R4">R4</option>
+        <option value="R5">R5</option>
+        <option value="R6">R6</option>
+        <option value="R7">R7</option>
+        <option value="R8">R8</option>
+        <option value="R9">R9</option>
+    </select>
     <br><br>
     <label for="reliquiaInputDestino">Reliquia destino:</label>
-    <input type="text" id="reliquiaInputDestino" placeholder="Por ejemplo, R8, R9, etc.">
+    <select id="reliquiaInputDestino">
+        <option value="R0">R0</option>
+        <option value="R1">R1</option>
+        <option value="R2">R2</option>
+        <option value="R3">R3</option>
+        <option value="R4">R4</option>
+        <option value="R5">R5</option>
+        <option value="R6">R6</option>
+        <option value="R7">R7</option>
+        <option value="R8">R8</option>
+        <option value="R9">R9</option>
+    </select>
     <br><br>
     <button onclick="calcularMateriales()">Calcular Materiales</button>
     <div id="resultado"></div>
@@ -20,15 +42,16 @@
     <script>
         // Definir la tabla de materiales necesarios por reliquia
         const tabla = {
-            "R1": {"Creditos": 10000, "Materiales": {"Carbonita":40, "Fragmentados": 0, "Incompletos": 0, "Errores": 0}},
-            "R2": {"Creditos": 25000, "Materiales": {"Carbonita": 30, "Bronzium": 40, "Fragmentados": 15, "Incompletos": 0, "Errores": 0}},
-            "R3": {"Creditos": 50000, "Materiales": {"Carbonita": 30, "Bronzium": 40, "Chromium": 20, "Fragmentados": 20, "Incompletos": 15, "Errores": 0}},            
-            "R4": {"Creditos": 75000, "Materiales": {"Carbonita": 30, "Bronzium": 40, "Chromium": 40, "Fragmentados": 20, "Incompletos": 25, "Errores": 0}},
-            "R5": {"Creditos": 100000, "Materiales": {"Carbonita": 30, "Bronzium": 40, "Chromium": 40, "Aurodium": 20, "Fragmentados": 20, "Incompletos": 25, "Errores": 15}},            
-            "R6": {"Creditos": 250000, "Materiales": {"Carbonita": 20, "Bronzium": 30, "Chromium": 30, "Aurodium": 20, "Electrium": 20, "Fragmentados": 20, "Incompletos": 25, "Errores": 25}},            
-            "R7": {"Creditos": 500000, "Materiales": {"Carbonita": 20, "Bronzium": 30, "Chromium": 30, "Aurodium": 20, "Electrium": 20, "Zinbiddle": 10, "Fragmentados": 20, "Incompletos": 25, "Errores": 35}},            
-            "R8": {"Creditos": 1000000, "Materiales": {"Carbonita": 20, "Bronzium": 30, "Chromium": 30, "Aurodium": 20, "Electrium": 20, "Zinbiddle": 10, "Impulsos": 20, "Aeromagnificador": 20, "Gyrda": 20, "Fragmentados": 20, "Incompletos": 25, "Errores": 45}},
-            "R9": {"Creditos": 1500000, "Materiales": {"Carbonita": 20, "Bronzium": 30, "Chromium": 30, "Aurodium": 20, "Electrium": 20, "Zinbiddle": 10, "Impulsos": 20, "Aeromagnificador": 20, "Gyrda": 20, "Droide": 20, "Fragmentados": 30, "Incompletos": 30, "Errores": 55}},
+            "R0": {"Creditos": 0, "Materiales": {"Carbonita": 0, "Bronzium": 0, "Chromium": 0, "Aurodium": 0, "Electrium": 0, "Zinbiddle": 0, "Impulsos": 0, "Aeromagnificador": 0, "Gyrda": 0, "Droide": 0}, "Datos": {"Fragmentados": 0, "Incompletos": 0, "Errores": 0}},
+            "R1": {"Creditos": 10000, "Materiales": {"Carbonita": 40, "Bronzium": 0, "Chromium": 0, "Aurodium": 0, "Electrium": 0, "Zinbiddle": 0, "Impulsos": 0, "Aeromagnificador": 0, "Gyrda": 0, "Droide": 0}, "Datos": {"Fragmentados": 0, "Incompletos": 0, "Errores": 0}},
+            "R2": {"Creditos": 25000, "Materiales": {"Carbonita": 30, "Bronzium": 40, "Chromium": 0, "Aurodium": 0, "Electrium": 0, "Zinbiddle": 0, "Impulsos": 0, "Aeromagnificador": 0, "Gyrda": 0, "Droide": 0}, "Datos": {"Fragmentados": 15, "Incompletos": 0, "Errores": 0}},
+            "R3": {"Creditos": 50000, "Materiales": {"Carbonita": 30, "Bronzium": 40, "Chromium": 20, "Aurodium": 0, "Electrium": 0, "Zinbiddle": 0, "Impulsos": 0, "Aeromagnificador": 0, "Gyrda": 0, "Droide": 0}, "Datos": {"Fragmentados": 20, "Incompletos": 15, "Errores": 0}},           
+            "R4": {"Creditos": 75000, "Materiales": {"Carbonita": 30, "Bronzium": 40, "Chromium": 40, "Aurodium": 0, "Electrium": 0, "Zinbiddle": 0, "Impulsos": 0, "Aeromagnificador": 0, "Gyrda": 0, "Droide": 0},"Datos": {"Fragmentados": 20, "Incompletos": 25, "Errores": 0}},
+            "R5": {"Creditos": 100000, "Materiales": {"Carbonita": 30, "Bronzium": 40, "Chromium": 30, "Aurodium": 20, "Electrium": 0, "Zinbiddle": 0, "Impulsos": 0, "Aeromagnificador": 0, "Gyrda": 0, "Droide": 0}, "Datos": {"Fragmentados": 20, "Incompletos": 25, "Errores": 15}},        
+            "R6": {"Creditos": 250000, "Materiales": {"Carbonita": 20, "Bronzium": 30, "Chromium": 30, "Aurodium": 20, "Electrium": 20, "Zinbiddle": 0, "Impulsos": 0, "Aeromagnificador": 0, "Gyrda": 0, "Droide": 0}, "Datos": {"Fragmentados": 20, "Incompletos": 25, "Errores": 25}},          
+            "R7": {"Creditos": 500000, "Materiales": {"Carbonita": 20, "Bronzium": 30, "Chromium": 20, "Aurodium": 20, "Electrium": 20, "Zinbiddle": 10, "Impulsos": 0, "Aeromagnificador": 0, "Gyrda": 0, "Droide": 0}, "Datos": {"Fragmentados": 20, "Incompletos": 25, "Errores": 35}},          
+            "R8": {"Creditos": 1000000, "Materiales": {"Carbonita": 20, "Bronzium": 30, "Chromium": 20, "Aurodium": 20, "Electrium": 20, "Zinbiddle": 20, "Impulsos": 20, "Aeromagnificador": 20, "Gyrda": 20, "Droide": 20}, "Datos": {"Fragmentados": 20, "Incompletos": 25, "Errores": 45}},
+            "R9": {"Creditos": 1500000, "Materiales": {"Carbonita": 20, "Bronzium": 30, "Chromium": 20, "Aurodium": 20, "Electrium": 20, "Zinbiddle": 20, "Impulsos": 20, "Aeromagnificador": 20, "Gyrda": 20, "Droide": 20},"Datos": {"Fragmentados": 30, "Incompletos": 30, "Errores": 55}},
         };
 
         // Función para obtener los materiales necesarios para una reliquia dada
@@ -59,7 +82,7 @@
             // Verificar que las reliquias existen en la tabla
             if (reliquiaInputInicio in tabla && reliquiaInputDestino in tabla) {
                 let totalCreditos = 0;
-                let totalMateriales = {"Carbonita": 0, "Bronzium": 0, "Chromium": 0, "Aurodium": 0, "Electrium": 0, "Impulsos": 0, "Aeromagnificador": 0, "Gyrda": 0, "Droide": 0};
+                let totalMateriales = {"Carbonita": 0, "Bronzium": 0, "Chromium": 0, "Aurodium": 0, "Electrium": 0, "Zinbiddle": 0, "Impulsos": 0, "Aeromagnificador": 0, "Gyrda": 0, "Droide": 0};
                 let totalDatos = {"Fragmentados": 0, "Incompletos": 0, "Errores": 0};
 
                 // Iterar desde la reliquia inicial hasta la reliquia destino, sumando los materiales necesarios
@@ -98,7 +121,7 @@
                 totalCreditos += materialesDestino["Creditos"];
 
                 // Mostrar los materiales necesarios totales
-                resultadoDiv.innerHTML += `<h2>Total Créditos: ${totalCreditos}</h2>`;
+                resultadoDiv.innerHTML = `<h2>Total Créditos: ${totalCreditos}</h2>`;
                 resultadoDiv.innerHTML += `<h2>Total Materiales:</h2>`;
                 resultadoDiv.innerHTML += mostrarMateriales(totalMateriales);
                 resultadoDiv.innerHTML += `<h2>Total Datos:</h2>`;
